@@ -18,8 +18,27 @@ namespace CustomMessageBox.Private
         private int borderSize = 2;
 
         //Properties
+        public static bool DefaultModifyPrimaryColor { get; set; }
 
-        public bool ModifyButtonsColors { get; set; }
+        public static bool DefaultModifyButtonsColor { get; set; }
+
+        public static Color DefaultButtonsBackColor { get; set; } = System.Drawing.SystemColors.Control;
+
+        public static Color DefaultButtonsForeColor { get; set; } = System.Drawing.SystemColors.ControlText;
+
+        public bool ModifyPrimaryColor { get; set; } = DefaultModifyPrimaryColor;
+
+        public bool ModifyButtonsColor { get; set; } = DefaultModifyButtonsColor;
+
+        /// <summary>
+        /// Back color to use for buttons when ModifyButtonsColor is false
+        /// </summary>
+        public Color ButtonsBackColor { get; set; } = DefaultButtonsBackColor;
+
+        /// <summary>
+        /// Fore color to use for buttons when ModifyButtonsColor is false
+        /// </summary>
+        public Color ButtonsForeColor { get; set; } = DefaultButtonsForeColor;
 
         public Color PrimaryColor
         {
@@ -32,42 +51,61 @@ namespace CustomMessageBox.Private
             }
         }
 
-        //Constructors
-        public FormMessageBox(string text)
+        public FormMessageBox()
         {
             InitializeComponent();
             InitializeItems();
             SetPrimaryColor();
+            if (!ModifyButtonsColor)
+            {
+                panelButtons.BackColor = DefaultButtonsBackColor;
+
+                button1.FlatStyle = FlatStyle.Standard;
+                button2.FlatStyle = FlatStyle.Standard;
+                button3.FlatStyle = FlatStyle.Standard;
+
+                button1.BackColor = ButtonsBackColor;
+                button2.BackColor = ButtonsBackColor;
+                button3.BackColor = ButtonsBackColor;
+                button1.ForeColor = ButtonsForeColor;
+                button2.ForeColor = ButtonsForeColor;
+                button2.ForeColor = ButtonsForeColor;
+                button3.ForeColor = ButtonsForeColor;
+            }
+        }
+
+        //Constructors
+        public FormMessageBox(string text)
+            :
+            this()
+        {
             this.labelMessage.Text = text;
             this.labelCaption.Text = "";
             SetFormSize();
             SetButtons(MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);//Set Default Buttons
         }
         public FormMessageBox(string text, string caption)
+            :
+            this()
         {
-            InitializeComponent();
-            InitializeItems();
-            SetPrimaryColor();
             this.labelMessage.Text = text;
             this.labelCaption.Text = caption;
             SetFormSize();
             SetButtons(MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);//Set Default Buttons
         }
         public FormMessageBox(string text, string caption, MessageBoxButtons buttons)
+            :
+            this()
         {
-            InitializeComponent();
-            InitializeItems();
-            SetPrimaryColor();
             this.labelMessage.Text = text;
             this.labelCaption.Text = caption;
             SetFormSize();
             SetButtons(buttons, MessageBoxDefaultButton.Button1);//Set [Default Button 1]
         }
         public FormMessageBox(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon)
+            :
+            this()
         {
-            InitializeComponent();
-            InitializeItems();
-            SetPrimaryColor();
             this.labelMessage.Text = text;
             this.labelCaption.Text = caption;
             SetFormSize();
@@ -75,10 +113,9 @@ namespace CustomMessageBox.Private
             SetIcon(icon);
         }
         public FormMessageBox(string text, string caption, MessageBoxButtons buttons, MessageBoxIcon icon, MessageBoxDefaultButton defaultButton)
+            :
+            this()
         {
-            InitializeComponent();
-            InitializeItems();
-            SetPrimaryColor();
             this.labelMessage.Text = text;
             this.labelCaption.Text = caption;
             SetFormSize();
@@ -88,7 +125,8 @@ namespace CustomMessageBox.Private
 
         private void SetPrimaryColor()
         {
-            this.PrimaryColor = PrimaryColor;
+            if (!ModifyPrimaryColor)
+                this.PrimaryColor = PrimaryColor;
         }
 
         //-> Private Methods
@@ -138,7 +176,8 @@ namespace CustomMessageBox.Private
                     button2.Location = new Point(xCenter + (button2.Width / 2) + 5, yCenter);
                     button2.Text = "Cancel";
                     button2.DialogResult = DialogResult.Cancel;//Set DialogResult
-                    button2.BackColor = Color.DimGray;
+                    if (ModifyButtonsColor)
+                        button2.BackColor = Color.DimGray;
 
                     //Set Default Button
                     if (defaultButton != MessageBoxDefaultButton.Button3)//There are only 2 buttons, so the Default Button cannot be Button3
@@ -158,7 +197,8 @@ namespace CustomMessageBox.Private
                     button2.Location = new Point(xCenter + (button2.Width / 2) + 5, yCenter);
                     button2.Text = "Cancel";
                     button2.DialogResult = DialogResult.Cancel;//Set DialogResult
-                    button2.BackColor = Color.DimGray;
+                    if (ModifyButtonsColor)
+                        button2.BackColor = Color.DimGray;
 
                     //Set Default Button
                     if (defaultButton != MessageBoxDefaultButton.Button3)//There are only 2 buttons, so the Default Button cannot be Button3
@@ -178,7 +218,8 @@ namespace CustomMessageBox.Private
                     button2.Location = new Point(xCenter + (button2.Width / 2) + 5, yCenter);
                     button2.Text = "No";
                     button2.DialogResult = DialogResult.No;//Set DialogResult
-                    button2.BackColor = Color.IndianRed;
+                    if (ModifyButtonsColor)
+                        button2.BackColor = Color.IndianRed;
 
                     //Set Default Button
                     if (defaultButton != MessageBoxDefaultButton.Button3)//There are only 2 buttons, so the Default Button cannot be Button3
@@ -197,14 +238,16 @@ namespace CustomMessageBox.Private
                     button2.Location = new Point(xCenter, yCenter);
                     button2.Text = "No";
                     button2.DialogResult = DialogResult.No;//Set DialogResult
-                    button2.BackColor = Color.IndianRed;
+                    if (ModifyButtonsColor)
+                        button2.BackColor = Color.IndianRed;
 
                     //Cancel Button
                     button3.Visible = true;
                     button3.Location = new Point(xCenter + button2.Width + 5, yCenter);
                     button3.Text = "Cancel";
                     button3.DialogResult = DialogResult.Cancel;//Set DialogResult
-                    button3.BackColor = Color.DimGray;
+                    if (ModifyButtonsColor)
+                        button3.BackColor = Color.DimGray;
 
                     //Set Default Button
                     SetDefaultButton(defaultButton);
@@ -216,7 +259,8 @@ namespace CustomMessageBox.Private
                     button1.Location = new Point(xCenter - button1.Width - 5, yCenter);
                     button1.Text = "Abort";
                     button1.DialogResult = DialogResult.Abort;//Set DialogResult
-                    button1.BackColor = Color.Goldenrod;
+                    if (ModifyButtonsColor)
+                        button1.BackColor = Color.Goldenrod;
 
                     //Retry Button
                     button2.Visible = true;
@@ -229,7 +273,8 @@ namespace CustomMessageBox.Private
                     button3.Location = new Point(xCenter + button2.Width + 5, yCenter);
                     button3.Text = "Ignore";
                     button3.DialogResult = DialogResult.Ignore;//Set DialogResult
-                    button3.BackColor = Color.IndianRed;
+                    if (ModifyButtonsColor)
+                        button3.BackColor = Color.IndianRed;
 
                     //Set Default Button
                     SetDefaultButton(defaultButton);
@@ -242,17 +287,20 @@ namespace CustomMessageBox.Private
             {
                 case MessageBoxDefaultButton.Button1://Focus button 1
                     button1.Select();
-                    button1.ForeColor = Color.White;
+                    if (ModifyButtonsColor)
+                        button1.ForeColor = Color.White;
                     button1.Font = new Font(button1.Font, FontStyle.Underline);
                     break;
                 case MessageBoxDefaultButton.Button2://Focus button 2
                     button2.Select();
-                    button2.ForeColor = Color.White;
+                    if (ModifyButtonsColor)
+                        button2.ForeColor = Color.White;
                     button2.Font = new Font(button2.Font, FontStyle.Underline);
                     break;
                 case MessageBoxDefaultButton.Button3://Focus button 3
                     button3.Select();
-                    button3.ForeColor = Color.White;
+                    if (ModifyButtonsColor)
+                        button3.ForeColor = Color.White;
                     button3.Font = new Font(button3.Font, FontStyle.Underline);
                     break;
             }
@@ -263,24 +311,30 @@ namespace CustomMessageBox.Private
             {
                 case MessageBoxIcon.Error: //Error
                     this.pictureBoxIcon.Image = Properties.Resources.error;
-                    PrimaryColor = Color.FromArgb(224, 79, 95);
-                    this.btnClose.FlatAppearance.MouseOverBackColor = Color.Crimson;
+                    if (ModifyPrimaryColor)
+                        PrimaryColor = Color.FromArgb(224, 79, 95);
+                    if (ModifyButtonsColor)
+                        this.btnClose.FlatAppearance.MouseOverBackColor = Color.Crimson;
                     break;
                 case MessageBoxIcon.Information: //Information
                     this.pictureBoxIcon.Image = Properties.Resources.information;
-                    PrimaryColor = Color.FromArgb(38, 191, 166);
+                    if (ModifyPrimaryColor)
+                        PrimaryColor = Color.FromArgb(38, 191, 166);
                     break;
                 case MessageBoxIcon.Question://Question
                     this.pictureBoxIcon.Image = Properties.Resources.question;
-                    PrimaryColor = Color.FromArgb(10, 119, 232);
+                    if (ModifyPrimaryColor)
+                        PrimaryColor = Color.FromArgb(10, 119, 232);
                     break;
                 case MessageBoxIcon.Exclamation://Exclamation
                     this.pictureBoxIcon.Image = Properties.Resources.exclamation;
-                    PrimaryColor = Color.FromArgb(255, 140, 0);
+                    if (ModifyPrimaryColor)
+                        PrimaryColor = Color.FromArgb(255, 140, 0);
                     break;
                 case MessageBoxIcon.None: //None
                     this.pictureBoxIcon.Image = Properties.Resources.chat;
-                    PrimaryColor = Color.CornflowerBlue;
+                    if (ModifyPrimaryColor)
+                        PrimaryColor = Color.CornflowerBlue;
                     break;
             }
         }

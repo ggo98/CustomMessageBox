@@ -45,12 +45,13 @@ namespace CustomMessageBox
             this.btnMsgWarning = new System.Windows.Forms.Button();
             this.btnMsgError = new System.Windows.Forms.Button();
             this.btnMsgInformation = new System.Windows.Forms.Button();
+            this.btnMsgAbortRetryIgnore = new System.Windows.Forms.Button();
             this.btnMsgOkCancel = new System.Windows.Forms.Button();
             this.btnMsgYesNo = new System.Windows.Forms.Button();
-            this.btnMsgAbortRetryIgnore = new System.Windows.Forms.Button();
             this.btnMsgYesNoCancel = new System.Windows.Forms.Button();
             this.btnMsgTextCaption2 = new System.Windows.Forms.Button();
             this.btnMsgRetryCancel = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.labelDialogResult = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +86,7 @@ namespace CustomMessageBox
             this.tableLayoutPanel1.Controls.Add(this.btnMsgYesNoCancel, 2, 5);
             this.tableLayoutPanel1.Controls.Add(this.btnMsgTextCaption2, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.btnMsgRetryCancel, 2, 6);
+            this.tableLayoutPanel1.Controls.Add(this.button1, 0, 2);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -239,7 +241,6 @@ namespace CustomMessageBox
             // 
             // btnMsgButton1
             // 
-            this.btnMsgButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.btnMsgButton1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnMsgButton1.FlatAppearance.BorderSize = 0;
             this.btnMsgButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -339,6 +340,23 @@ namespace CustomMessageBox
             this.btnMsgInformation.UseVisualStyleBackColor = false;
             this.btnMsgInformation.Click += new System.EventHandler(this.btnMsgInformation_Click);
             // 
+            // btnMsgAbortRetryIgnore
+            // 
+            this.btnMsgAbortRetryIgnore.BackColor = System.Drawing.Color.MediumVioletRed;
+            this.btnMsgAbortRetryIgnore.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnMsgAbortRetryIgnore.FlatAppearance.BorderSize = 0;
+            this.btnMsgAbortRetryIgnore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMsgAbortRetryIgnore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMsgAbortRetryIgnore.ForeColor = System.Drawing.Color.White;
+            this.btnMsgAbortRetryIgnore.Location = new System.Drawing.Point(527, 235);
+            this.btnMsgAbortRetryIgnore.Margin = new System.Windows.Forms.Padding(15);
+            this.btnMsgAbortRetryIgnore.Name = "btnMsgAbortRetryIgnore";
+            this.btnMsgAbortRetryIgnore.Size = new System.Drawing.Size(226, 45);
+            this.btnMsgAbortRetryIgnore.TabIndex = 17;
+            this.btnMsgAbortRetryIgnore.Text = "Abort - Retry - Ignore";
+            this.btnMsgAbortRetryIgnore.UseVisualStyleBackColor = false;
+            this.btnMsgAbortRetryIgnore.Click += new System.EventHandler(this.btnMsgAbortRetryIgnore_Click);
+            // 
             // btnMsgOkCancel
             // 
             this.btnMsgOkCancel.BackColor = System.Drawing.Color.DarkSeaGreen;
@@ -372,23 +390,6 @@ namespace CustomMessageBox
             this.btnMsgYesNo.Text = "Yes - No";
             this.btnMsgYesNo.UseVisualStyleBackColor = false;
             this.btnMsgYesNo.Click += new System.EventHandler(this.btnMsgYesNo_Click);
-            // 
-            // btnMsgAbortRetryIgnore
-            // 
-            this.btnMsgAbortRetryIgnore.BackColor = System.Drawing.Color.MediumVioletRed;
-            this.btnMsgAbortRetryIgnore.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnMsgAbortRetryIgnore.FlatAppearance.BorderSize = 0;
-            this.btnMsgAbortRetryIgnore.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMsgAbortRetryIgnore.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMsgAbortRetryIgnore.ForeColor = System.Drawing.Color.White;
-            this.btnMsgAbortRetryIgnore.Location = new System.Drawing.Point(527, 235);
-            this.btnMsgAbortRetryIgnore.Margin = new System.Windows.Forms.Padding(15);
-            this.btnMsgAbortRetryIgnore.Name = "btnMsgAbortRetryIgnore";
-            this.btnMsgAbortRetryIgnore.Size = new System.Drawing.Size(226, 45);
-            this.btnMsgAbortRetryIgnore.TabIndex = 17;
-            this.btnMsgAbortRetryIgnore.Text = "Abort - Retry - Ignore";
-            this.btnMsgAbortRetryIgnore.UseVisualStyleBackColor = false;
-            this.btnMsgAbortRetryIgnore.Click += new System.EventHandler(this.btnMsgAbortRetryIgnore_Click);
             // 
             // btnMsgYesNoCancel
             // 
@@ -439,6 +440,17 @@ namespace CustomMessageBox
             this.btnMsgRetryCancel.Text = "Retry - Cancel";
             this.btnMsgRetryCancel.UseVisualStyleBackColor = false;
             this.btnMsgRetryCancel.Click += new System.EventHandler(this.btnMsgRetryCancel_Click);
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.Control;
+            this.button1.Location = new System.Drawing.Point(3, 148);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 21;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // labelDialogResult
             // 
@@ -493,5 +505,6 @@ namespace CustomMessageBox
         private System.Windows.Forms.Button btnMsgTextCaption2;
         private System.Windows.Forms.Button btnMsgRetryCancel;
         private System.Windows.Forms.Label labelDialogResult;
+        private System.Windows.Forms.Button button1;
     }
 }

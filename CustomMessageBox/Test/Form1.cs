@@ -17,6 +17,9 @@ namespace CustomMessageBox
         public Form1()
         {
             InitializeComponent();
+
+            Private.FormMessageBox.DefaultModifyPrimaryColor = true;
+            Private.FormMessageBox.DefaultModifyButtonsColor = true;
         }
 
         //-> Text-Only Message Box
@@ -183,6 +186,11 @@ namespace CustomMessageBox
             RJMessageBox.Show(this, "Text", "Caption");
             RJMessageBox.Show(this, "Text", "Caption", MessageBoxButtons.OKCancel);
             //Etc
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
