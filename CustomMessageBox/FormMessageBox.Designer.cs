@@ -39,6 +39,7 @@ namespace CustomMessageBox.Private
             this.panelBody = new System.Windows.Forms.Panel();
             this.labelMessage = new System.Windows.Forms.Label();
             this.pictureBoxIcon = new System.Windows.Forms.PictureBox();
+            this.textBoxMessage = new System.Windows.Forms.TextBox();
             this.panelTitleBar.SuspendLayout();
             this.panelButtons.SuspendLayout();
             this.panelBody.SuspendLayout();
@@ -101,6 +102,7 @@ namespace CustomMessageBox.Private
             // 
             // button3
             // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button3.BackColor = System.Drawing.Color.SeaGreen;
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -115,6 +117,7 @@ namespace CustomMessageBox.Private
             // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.BackColor = System.Drawing.Color.SeaGreen;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -129,6 +132,7 @@ namespace CustomMessageBox.Private
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.BackColor = System.Drawing.Color.SeaGreen;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -145,6 +149,7 @@ namespace CustomMessageBox.Private
             // 
             this.panelBody.AutoScroll = true;
             this.panelBody.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.panelBody.Controls.Add(this.textBoxMessage);
             this.panelBody.Controls.Add(this.labelMessage);
             this.panelBody.Controls.Add(this.pictureBoxIcon);
             this.panelBody.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -158,7 +163,6 @@ namespace CustomMessageBox.Private
             // labelMessage
             // 
             this.labelMessage.AutoSize = true;
-            this.labelMessage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.labelMessage.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
             this.labelMessage.Location = new System.Drawing.Point(91, 18);
             this.labelMessage.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
@@ -181,6 +185,17 @@ namespace CustomMessageBox.Private
             this.pictureBoxIcon.TabIndex = 0;
             this.pictureBoxIcon.TabStop = false;
             // 
+            // textBoxMessage
+            // 
+            this.textBoxMessage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxMessage.Location = new System.Drawing.Point(95, 18);
+            this.textBoxMessage.Multiline = true;
+            this.textBoxMessage.Name = "textBoxMessage";
+            this.textBoxMessage.Size = new System.Drawing.Size(536, 70);
+            this.textBoxMessage.TabIndex = 2;
+            // 
             // FormMessageBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
@@ -195,6 +210,7 @@ namespace CustomMessageBox.Private
             this.MinimumSize = new System.Drawing.Size(628, 245);
             this.Name = "FormMessageBox";
             this.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Form1";
             this.panelTitleBar.ResumeLayout(false);
@@ -219,6 +235,7 @@ namespace CustomMessageBox.Private
         private System.Windows.Forms.Label labelMessage;
         private System.Windows.Forms.PictureBox pictureBoxIcon;
         private System.Windows.Forms.Label labelCaption;
+        private System.Windows.Forms.TextBox textBoxMessage;
     }
 }
 
