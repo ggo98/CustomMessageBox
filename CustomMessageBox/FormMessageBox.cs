@@ -72,6 +72,23 @@ namespace CustomMessageBox.Private
                 button2.ForeColor = ButtonsForeColor;
                 button3.ForeColor = ButtonsForeColor;
             }
+
+            //// Allow dragging the form manually
+            //this.MouseDown += (sender, e) =>
+            //{
+            //    if (e.Button == MouseButtons.Left)
+            //    {
+            //        this.Capture = false;
+            //        var msg = Message.Create(this.Handle, 0xA1, new IntPtr(2), IntPtr.Zero); // 0xA1 is WM_NCLBUTTONDOWN
+            //        this.WndProc(ref msg);
+            //    }
+            //};
+        }
+
+        private void SetText(string text)
+        {
+            this.labelMessage.Text = text;
+            textBoxMessage.Text = text;
         }
 
         //Constructors
@@ -79,7 +96,7 @@ namespace CustomMessageBox.Private
             :
             this()
         {
-            this.labelMessage.Text = text;
+            SetText(text);
             this.labelCaption.Text = "";
             SetFormSize();
             SetButtons(MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);//Set Default Buttons
@@ -88,7 +105,7 @@ namespace CustomMessageBox.Private
             :
             this()
         {
-            this.labelMessage.Text = text;
+            SetText(text);
             this.labelCaption.Text = caption;
             SetFormSize();
             SetButtons(MessageBoxButtons.OK, MessageBoxDefaultButton.Button1);//Set Default Buttons
@@ -97,7 +114,7 @@ namespace CustomMessageBox.Private
             :
             this()
         {
-            this.labelMessage.Text = text;
+            SetText(text);
             this.labelCaption.Text = caption;
             SetFormSize();
             SetButtons(buttons, MessageBoxDefaultButton.Button1);//Set [Default Button 1]
@@ -106,7 +123,7 @@ namespace CustomMessageBox.Private
             :
             this()
         {
-            this.labelMessage.Text = text;
+            SetText(text);
             this.labelCaption.Text = caption;
             SetFormSize();
             SetButtons(buttons, MessageBoxDefaultButton.Button1);//Set [Default Button 1]
@@ -116,7 +133,7 @@ namespace CustomMessageBox.Private
             :
             this()
         {
-            this.labelMessage.Text = text;
+            SetText(text);
             this.labelCaption.Text = caption;
             SetFormSize();
             SetButtons(buttons, defaultButton);
@@ -133,6 +150,7 @@ namespace CustomMessageBox.Private
         private void InitializeItems()
         {
             this.FormBorderStyle = FormBorderStyle.None;
+            this.SetBounds(100, 100, 600, 400);
             this.Padding = new Padding(borderSize);//Set border size
             this.labelMessage.MaximumSize = new Size(550, 0);
             this.btnClose.DialogResult = DialogResult.Cancel;
@@ -345,6 +363,66 @@ namespace CustomMessageBox.Private
             this.Close();
         }
 
+        private const int HTLEFT = 10;
+        private const int HTRIGHT = 11;
+        private const int HTTOP = 12;
+        private const int HTTOPLEFT = 13;
+        private const int HTTOPRIGHT = 14;
+        private const int HTBOTTOM = 15;
+        private const int HTBOTTOMLEFT = 16;
+        private const int HTBOTTOMRIGHT = 17;
+        private const int WM_NCHITTEST = 0x84;
+
+        #region Make window resizable
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_NCHITTEST)
+            {
+                Point pos = new Point(m.LParam.ToInt32());
+                pos = this.PointToClient(pos);
+
+                const int cornerSize = 10;
+
+                if (pos.X <= cornerSize && pos.Y <= cornerSize)
+                {
+                    m.Result = (IntPtr)HTTOPLEFT;
+                }
+                else if (pos.X >= this.ClientSize.Width - cornerSize && pos.Y <= cornerSize)
+                {
+                    m.Result = (IntPtr)HTTOPRIGHT;
+                }
+                else if (pos.X <= cornerSize && pos.Y >= this.ClientSize.Height - cornerSize)
+                {
+                    m.Result = (IntPtr)HTBOTTOMLEFT;
+                }
+                else if (pos.X >= this.ClientSize.Width - cornerSize && pos.Y >= this.ClientSize.Height - cornerSize)
+                {
+                    m.Result = (IntPtr)HTBOTTOMRIGHT;
+                }
+                else if (pos.X <= cornerSize)
+                {
+                    m.Result = (IntPtr)HTLEFT;
+                }
+                else if (pos.X >= this.ClientSize.Width - cornerSize)
+                {
+                    m.Result = (IntPtr)HTRIGHT;
+                }
+                else if (pos.Y <= cornerSize)
+                {
+                    m.Result = (IntPtr)HTTOP;
+                }
+                else if (pos.Y >= this.ClientSize.Height - cornerSize)
+                {
+                    m.Result = (IntPtr)HTBOTTOM;
+                }
+            }
+        }
+
+        #endregion
+
         #region -> Drag Form
         [DllImport("user32.DLL", EntryPoint = "SendMessage")]
         private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int lParam);
@@ -352,6 +430,9 @@ namespace CustomMessageBox.Private
         private extern static void ReleaseCapture();
         private void panelTitleBar_MouseDown(object sender, MouseEventArgs e)
         {
+            // il a fait ça pour qu'on puisse déplacer la fenêtre.
+            // (j'ai pas 100% compris pourquoi ni comment ça fonctionne mais ça semble le faire)
+            // une partie de la raison est à priori que le border style de la form est FormBorderStyle.None
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
